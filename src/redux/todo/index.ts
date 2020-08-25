@@ -6,11 +6,17 @@ const initialState: Todo[] = [
     todoId: 1,
     description: "Kill Sage",
     userId: "ngomnanaft@icloud.com",
+    createdAt: "20/02/2020",
+    editedAt: "11/03/2020",
+    deleted: false,
   },
   {
     todoId: 2,
     description: "Climb Kilimanjaro",
     userId: "ngomnanaft@icloud.com",
+    createdAt: "22/02/2020",
+    editedAt: "15/03/2020",
+    deleted: false,
   },
 ];
 
