@@ -9,8 +9,10 @@ import {
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { createTodoAction } from "../redux/todo";
 
+
 const CreateAndEditTodo = ({ route }: any) => {
   const [todoName, setTodoName] = useState();
+
 
   const todos = useSelector((state: RootStateOrAny) => state.todos);
   const dispatch = useDispatch();
@@ -40,14 +42,15 @@ const CreateAndEditTodo = ({ route }: any) => {
     );
   };
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
       <TextInput
-        placeholder={"Todo Name"}
+      style={{fontSize:20, backgroundColor:"#f6f5f5"}}
+        placeholder={"Type Todo Name"}
         value={todoName}
         onChange={todoOnChange}
       />
-
-      <Button title={"Add Todo"} onPress={addTodo} />
+      
+      <Button  title={"Add Todo"} onPress={addTodo} ></Button>
     </View>
   );
 };
