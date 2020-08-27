@@ -1,14 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: IUser = {
-  email: "",
-  password: "",
   token: "",
 };
 
 interface IUser {
-  email: string;
-  password: string;
   token: string;
 }
 
@@ -18,8 +14,6 @@ const userSlice = createSlice({
   reducers: {
     create: {
       reducer: (state, { payload }: PayloadAction<IUser>) => {
-        state.email = payload.email;
-        state.password = payload.password;
         state.token = payload.token;
       },
       prepare: (user: IUser) => ({

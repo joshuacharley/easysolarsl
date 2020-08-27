@@ -11,20 +11,20 @@ const Stack = createStackNavigator();
 const StackNavigator = () => {
   return (
     <Stack.Navigator>
-      {/*<Stack.Screen*/}
-      {/*  name={"loginScreen"}*/}
-      {/*  component={LoginScreen}*/}
-      {/*  options={{*/}
-      {/*    headerShown: false,*/}
-      {/*  }}*/}
-      {/*/>*/}
-      {/*<Stack.Screen*/}
-      {/*  name={"signUpScreen"}*/}
-      {/*  component={SignUpScreen}*/}
-      {/*  options={{*/}
-      {/*    headerShown: true,*/}
-      {/*  }}*/}
-      {/*/>*/}
+      <Stack.Screen
+        name={"loginScreen"}
+        component={LoginScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={"signUpScreen"}
+        component={SignUpScreen}
+        options={{
+          headerShown: true,
+        }}
+      />
       <Stack.Screen
         name={"todoScreen"}
         component={TodoScreen}

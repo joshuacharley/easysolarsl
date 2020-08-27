@@ -1,21 +1,85 @@
 import React, { SyntheticEvent, useState } from "react";
 import { Text, TextInput, TouchableHighlight, View } from "react-native";
+import { useDispatch } from "react-redux";
+import { loginAction } from "../redux/user";
 
-const SignUpScreen = ({ navigation }) => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-  const [token, setToken] = useState();
+const SignUpScreen = ({ navigation }: any) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [token, setToken] = useState("");
   const [loginFalse, setLoginFalse] = useState(false);
 
+  const dispatch = useDispatch();
+
   const createUserHandler = () => {
+    const signUpQuery = {
+      query: `
+          mutation{
+            createUser(email: "${email}", password: "${password}")
+          }
+          `,
+    };
+
+    try {
+      fetch("http://localhost:4000/graphql", {
+        method: "POST",
+        body: JSON.stringify(signUpQuery),
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then(async (resData) => {
+          await resData;
+
+          //login the user token create an access token
+          // @ts-ignore
+          if (resData === true) {
+            try {
+              const singInQuery = {
+                query: `
+                            mutation{
+                                login(email: "${email}", password: "${password}"){
+                                    accessToken
+                                }
+                            }
+                        `,
+              };
+
+              fetch("http://localhost: 4000/graphql", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(singInQuery),
+              })
+                .then((res) => res.json())
+                .then(async (loginData) => {
+                  await dispatch(
+                    loginAction({
+                      token: loginData.accessToken,
+                    })
+                  );
+                  navigation.replace("todoScreen");
+                });
+            } catch (e) {
+              throw e;
+            }
+          } else {
+            return;
+          }
+        });
+    } catch (e) {
+      throw e;
+    }
     navigation.navigate("signUpScreen");
   };
 
-  const emailInput = (e: SyntheticEvent<string>) => {
-    const value = e.nativeEvent.text;
-
-    setEmail(value);
+  const emailInput = (e: {
+    nativeEvent: { text: React.SetStateAction<string> };
+  }) => {
+    setEmail(e.nativeEvent.text);
   };
   const passwordInput = (e: SyntheticEvent<string>) => {
     const value = e.nativeEvent.text;
@@ -69,7 +133,7 @@ const SignUpScreen = ({ navigation }) => {
       </View>
       <View>
         <TouchableHighlight
-          onPress={() => {}}
+          onPress={createUserHandler}
           underlayColor={"#dfe6e9"}
           style={{
             marginTop: 20,

@@ -4,7 +4,7 @@ import { RootStateOrAny, useSelector } from "react-redux";
 import DefaultButton from "../components/defaultButton";
 import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
 
-const TodoScreen = ({ navigation }: any) => {
+const TodoScreen = () => {
   const [connected, setConnected] = useState(true);
   const todos = useSelector((state: RootStateOrAny) => state.todos);
   const netInfo = NetInfo;
@@ -34,9 +34,7 @@ const TodoScreen = ({ navigation }: any) => {
       <FlatList
         data={todos}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({
-          item: { todoId, description, createdAt, editedAt },
-        }) => {
+        renderItem={({ item: { description, createdAt, editedAt } }) => {
           return (
             <View
               style={{
@@ -76,11 +74,7 @@ const TodoScreen = ({ navigation }: any) => {
                   buttonCaption={"Edit"}
                   buttonColor={"black"}
                   buttonBackgroundColor={"pink"}
-                  onPressHandler={() => {
-                    navigation.navigate("createAndEditScreen", {
-                      todoId: todoId,
-                    });
-                  }}
+                  onPressHandler={() => {}}
                 />
 
                 <DefaultButton
