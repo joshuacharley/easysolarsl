@@ -89,7 +89,7 @@ const SignUpScreen = ({ navigation }: any) => {
   const confirmPasswordInput = (e: SyntheticEvent<string>) => {
     const value = e.nativeEvent.text;
 
-    setPassword(value);
+    setConfirmPassword(value);
   };
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
